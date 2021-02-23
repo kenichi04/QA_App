@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:ansroid="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    ansroid:layout_width="match_parent"
+    ansroid:layout_height="match_parent"
+    ansroid:paddingBottom="16dp"
+    ansroid:paddingLeft="16dp"
+    ansroid:paddingRight="16dp"
+    ansroid:paddingTop="16dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="jp.techacademy.kenichi04.qa_app.MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+    <ListView
+        ansroid:layout_width="match_parent"
+        ansroid:layout_height="match_parent"
+        ansroid:id="@+id/listView" />
+
+</RelativeLayout>
