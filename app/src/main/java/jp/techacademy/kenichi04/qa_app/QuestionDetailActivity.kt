@@ -3,6 +3,7 @@ package jp.techacademy.kenichi04.qa_app
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_question_detail.*
@@ -15,7 +16,16 @@ class QuestionDetailActivity : AppCompatActivity() {
 
     private val mEventListener = object : ChildEventListener {
         override fun onChildAdded(dataSnapshot: DataSnapshot, previousChildName: String?) {
+            /*
+         ex)  dataSnapshot = DataSnapshot {
+                key = -MUCp7un0hG2rV34v-fJ ,
+                value = { name=kenichi, uid=***, body=*** }
+              }
+            */
             val map = dataSnapshot.value as Map<*, *>
+
+            // ex) map : {name=ken, uid=JRwbXgUJGmVSccAe59Nbs2AkP7Y2, body=no hobby}
+            Log.d("QA_APP/QUESTION_DETAIL", "map : $map")
 
             val answerUid = dataSnapshot.key ?: ""
 

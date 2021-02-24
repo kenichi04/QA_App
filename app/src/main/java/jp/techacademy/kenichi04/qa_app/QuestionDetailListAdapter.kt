@@ -24,6 +24,7 @@ class QuestionDetailListAdapter(context: Context, private val mQuestion: Questio
     }
 
     override fun getCount(): Int {
+        // 質問（1）+ answer数
         return 1 + mQuestion.answers.size
     }
 

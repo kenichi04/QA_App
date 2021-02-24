@@ -161,6 +161,7 @@ class QuestionSendActivity : AppCompatActivity(), View.OnClickListener, Database
             }
 
             // 第2引数にはCompletionListenerクラス（今回はActivity）、画像保存に時間を要するためCompletionListenerで完了を受け取る
+            // push()メソッドを挟む事で、タイムスタンプに基づいた一意のIDが払い出される
             genreRef.push().setValue(data, this)
             progressBar.visibility = View.VISIBLE
         }
@@ -209,6 +210,7 @@ class QuestionSendActivity : AppCompatActivity(), View.OnClickListener, Database
         // 2つ目のIntentを指定することで、2つのIntentを選択するダイアログが表示される
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(cameraIntent))
 
+        // ユーザーがダイアログでintent選択した時、onActivityResultが呼ばれる（CHOOSER_REQUEST_CODEで判定できる）
         startActivityForResult(chooserIntent, CHOOSER_REQUEST_CODE)
     }
 

@@ -3,6 +3,7 @@ package jp.techacademy.kenichi04.qa_app
 import android.content.Intent
 import android.os.Bundle
 import android.util.Base64
+import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -31,7 +32,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val mEventListener = object : ChildEventListener {
         // 要素が追加された時（質問が追加されたとき）
         override fun onChildAdded(dataSnapshot: DataSnapshot, previousChildName: String?) {
+            /*
+        ex) dataSnapshot =
+                 DataSnapshot { key = MU2B3-txLOMNauHSQEv ,
+                               value = { name=kenichi, uid=***, body=***, title=*** }}
+            */
             val map = dataSnapshot.value as Map<String, String>
+
+            // ex) map : {name=kenichi, uid=JRwbXgUJGmVSccAe59Nbs2AkP7Y2, body=what is your hobby, title=hobby}
+            Log.d("QA_APP", "map : $map")
+
             val title = map["title"] ?: ""
             val body = map["body"] ?: ""
             val name = map["name"] ?: ""
@@ -46,8 +56,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             val answerArrayList = ArrayList<Answer>()
             val answerMap = map["answers"] as Map<String, String>?
+
+            // ex) answerMap : {-MUCv-v4u1JuCU66ETG8={name=ken, uid=JRwbXgUJGmVSccAe59Nbs2AkP7Y2, body=i have hobby}, -MUHStGbjvx07iL-Iine={name=ken, uid=JRwbXgUJGmVSccAe59Nbs2AkP7Y2, body=non},
+            Log.d("QA_APP", "answerMap : $answerMap")
+
             if (answerMap != null) {
                 for (key in answerMap.keys) {
+
+                    // ex) answerMap-key : -MUCv-v4u1JuCU66ETG8
+                    Log.d("QA_APP", "answerMap-key : $key")
+
                     val temp = answerMap[key] as Map<String, String>
                     val answerBody = temp["body"] ?: ""
                     val answerName = temp["name"] ?: ""
@@ -200,7 +218,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             toolbar.title = getString(R.string.menu_computer_label)
             mGenre = 4
         }
-
+        // ドロワーを閉じる
         drawer_layout.closeDrawer(GravityCompat.START)
 
         // Firebaseに対して、選択したジャンルの質問のデータの変化を受け取るよう、ChildEventListenerを設定する
